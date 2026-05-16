@@ -15,7 +15,10 @@ export const ourFileRouter = {
       return { adminAuthentifie: true };
     })
     .onUploadComplete(async ({ file }) => {
-      return { url: file.url, key: file.key, name: file.name };
+      // `ufsUrl` est l'URL canonique (<appId>.ufs.sh/f/<key>) ;
+      // `url` (utfs.io) est déprécié par UploadThing.
+      const url = (file as { ufsUrl?: string }).ufsUrl ?? file.url;
+      return { url, key: file.key, name: file.name };
     }),
 } satisfies FileRouter;
 
