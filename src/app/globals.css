@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primaire: #DCAE96;
+  --secondaire: #B76E79;
+  --fond: #F8F9FA;
+  --accent: #D4AF37;
+  --charbon: #2C2C2C;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  background-color: var(--fond);
+  color: var(--charbon);
+}
+
+body {
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  font-feature-settings: "ss01" on, "cv11" on;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  letter-spacing: -0.01em;
+}
+
+/* === Texture marbrée discrète === */
+.texture-marbre {
+  position: relative;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(220, 174, 150, 0.18), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 80% 30%, rgba(183, 110, 121, 0.10), transparent 65%),
+    radial-gradient(ellipse 90% 70% at 50% 90%, rgba(212, 175, 55, 0.08), transparent 70%),
+    linear-gradient(135deg, #F8F9FA 0%, #FBF7F4 50%, #F3EEEA 100%);
+}
+
+.texture-marbre::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      105deg,
+      transparent 0px,
+      transparent 12px,
+      rgba(44, 44, 44, 0.012) 12px,
+      rgba(44, 44, 44, 0.012) 13px
+    ),
+    repeating-linear-gradient(
+      -75deg,
+      transparent 0px,
+      transparent 20px,
+      rgba(183, 110, 121, 0.018) 20px,
+      rgba(183, 110, 121, 0.018) 21px
+    );
+  pointer-events: none;
+}
+
+/* === Voile blanc transparent sur mobile pour la lisibilité === */
+@media (max-width: 768px) {
+  .voile-mobile {
+    position: relative;
+  }
+  .voile-mobile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.78) 0%,
+      rgba(255, 255, 255, 0.45) 50%,
+      rgba(255, 255, 255, 0.25) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .voile-mobile > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* === Effet doré pour les filets === */
+.filet-or {
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  height: 1px;
+  width: 100%;
+}
+
+/* === Boutons === */
+.btn-primaire {
+  @apply inline-flex items-center justify-center px-7 py-3 bg-charbon text-white
+         font-sans text-sm tracking-luxe uppercase
+         shadow-elegance hover:shadow-elegance-hover
+         transition-all duration-300 ease-elegance
+         hover:bg-secondaire focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-fond;
+}
+
+.btn-or {
+  @apply inline-flex items-center justify-center px-7 py-3
+         bg-gradient-or text-charbon
+         font-sans text-sm tracking-luxe uppercase font-medium
+         shadow-gold hover:shadow-elegance-hover
+         transition-all duration-300 ease-elegance
+         hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-fond;
+}
+
+.btn-contour {
+  @apply inline-flex items-center justify-center px-7 py-3 bg-transparent
+         border border-charbon/30 text-charbon
+         font-sans text-sm tracking-luxe uppercase
+         transition-all duration-300 ease-elegance
+         hover:border-charbon hover:bg-charbon hover:text-white
+         focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-fond;
+}
+
+/* === Champs de formulaire === */
+.champ {
+  @apply w-full px-4 py-3 bg-white border border-charbon/15
+         text-charbon placeholder:text-charbon/40
+         font-sans text-base
+         shadow-sm
+         focus:outline-none focus:border-secondaire focus:ring-1 focus:ring-secondaire
+         transition-colors duration-200;
+}
+
+.etiquette {
+  @apply block text-xs tracking-luxe uppercase text-charbon/70 mb-2 font-medium;
+}
+
+/* === Carte produit === */
+.carte {
+  @apply bg-white shadow-elegance hover:shadow-elegance-hover
+         transition-all duration-500 ease-elegance;
+}
+
+/* === Animation subtile === */
+@keyframes monter-doucement {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-monter {
+  animation: monter-doucement 0.7s ease-elegance both;
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.anim-apparition {
+  animation: apparition 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top center;
+}
+
+/* === Scrollbar discrète === */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(44, 44, 44, 0.18);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(44, 44, 44, 0.32);
+}
+
+/* === Sélection === */
+::selection {
+  background: var(--secondaire);
+  color: #fff;
+}
